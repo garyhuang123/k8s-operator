@@ -20,7 +20,7 @@ package externalversions
 
 import (
 	"fmt"
-	v1 "k8s-operator/operator/reboot/pkg/apis/reboot/v1"
+	v1alpha1 "k8s-operator/operator/reboot/pkg/apis/reboot/v1alpha1"
 
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
@@ -52,9 +52,9 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=reboot, Version=v1
-	case v1.SchemeGroupVersion.WithResource("rebootoperators"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Reboot().V1().RebootOperators().Informer()}, nil
+	// Group=reboot, Version=v1alpha1
+	case v1alpha1.SchemeGroupVersion.WithResource("reboots"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Reboot().V1alpha1().Reboots().Informer()}, nil
 
 	}
 

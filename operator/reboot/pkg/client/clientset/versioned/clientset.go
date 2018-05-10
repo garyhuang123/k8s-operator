@@ -19,7 +19,7 @@ limitations under the License.
 package versioned
 
 import (
-	rebootv1 "k8s-operator/operator/reboot/pkg/client/clientset/versioned/typed/reboot/v1"
+	rebootv1alpha1 "k8s-operator/operator/reboot/pkg/client/clientset/versioned/typed/reboot/v1alpha1"
 
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
@@ -28,27 +28,27 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	RebootV1() rebootv1.RebootV1Interface
+	RebootV1alpha1() rebootv1alpha1.RebootV1alpha1Interface
 	// Deprecated: please explicitly pick a version if possible.
-	Reboot() rebootv1.RebootV1Interface
+	Reboot() rebootv1alpha1.RebootV1alpha1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	rebootV1 *rebootv1.RebootV1Client
+	rebootV1alpha1 *rebootv1alpha1.RebootV1alpha1Client
 }
 
-// RebootV1 retrieves the RebootV1Client
-func (c *Clientset) RebootV1() rebootv1.RebootV1Interface {
-	return c.rebootV1
+// RebootV1alpha1 retrieves the RebootV1alpha1Client
+func (c *Clientset) RebootV1alpha1() rebootv1alpha1.RebootV1alpha1Interface {
+	return c.rebootV1alpha1
 }
 
 // Deprecated: Reboot retrieves the default version of RebootClient.
 // Please explicitly pick a version.
-func (c *Clientset) Reboot() rebootv1.RebootV1Interface {
-	return c.rebootV1
+func (c *Clientset) Reboot() rebootv1alpha1.RebootV1alpha1Interface {
+	return c.rebootV1alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -67,7 +67,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	}
 	var cs Clientset
 	var err error
-	cs.rebootV1, err = rebootv1.NewForConfig(&configShallowCopy)
+	cs.rebootV1alpha1, err = rebootv1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 // panics if there is an error in the config.
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
-	cs.rebootV1 = rebootv1.NewForConfigOrDie(c)
+	cs.rebootV1alpha1 = rebootv1alpha1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -92,7 +92,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.rebootV1 = rebootv1.New(c)
+	cs.rebootV1alpha1 = rebootv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

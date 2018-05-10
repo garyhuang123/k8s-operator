@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "k8s-operator/operator/reboot/pkg/client/clientset/versioned"
-	rebootv1 "k8s-operator/operator/reboot/pkg/client/clientset/versioned/typed/reboot/v1"
-	fakerebootv1 "k8s-operator/operator/reboot/pkg/client/clientset/versioned/typed/reboot/v1/fake"
+	rebootv1alpha1 "k8s-operator/operator/reboot/pkg/client/clientset/versioned/typed/reboot/v1alpha1"
+	fakerebootv1alpha1 "k8s-operator/operator/reboot/pkg/client/clientset/versioned/typed/reboot/v1alpha1/fake"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
@@ -72,12 +72,12 @@ func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 
 var _ clientset.Interface = &Clientset{}
 
-// RebootV1 retrieves the RebootV1Client
-func (c *Clientset) RebootV1() rebootv1.RebootV1Interface {
-	return &fakerebootv1.FakeRebootV1{Fake: &c.Fake}
+// RebootV1alpha1 retrieves the RebootV1alpha1Client
+func (c *Clientset) RebootV1alpha1() rebootv1alpha1.RebootV1alpha1Interface {
+	return &fakerebootv1alpha1.FakeRebootV1alpha1{Fake: &c.Fake}
 }
 
-// Reboot retrieves the RebootV1Client
-func (c *Clientset) Reboot() rebootv1.RebootV1Interface {
-	return &fakerebootv1.FakeRebootV1{Fake: &c.Fake}
+// Reboot retrieves the RebootV1alpha1Client
+func (c *Clientset) Reboot() rebootv1alpha1.RebootV1alpha1Interface {
+	return &fakerebootv1alpha1.FakeRebootV1alpha1{Fake: &c.Fake}
 }

@@ -21,10 +21,10 @@ import (
 	"k8s.io/client-go/tools/record"
 	"k8s.io/client-go/util/workqueue"
 
-	informers "k8s-operator/operator/reboot/pkg//informers/externalversions"
 	rebootv1alpha1 "k8s-operator/operator/reboot/pkg/apis/reboot/v1alpha1"
 	clientset "k8s-operator/operator/reboot/pkg/client/clientset/versioned"
 	rebootscheme "k8s-operator/operator/reboot/pkg/client/clientset/versioned/scheme"
+	informers "k8s-operator/operator/reboot/pkg/client/informers/externalversions"
 	listers "k8s-operator/operator/reboot/pkg/client/listers/reboot/v1alpha1"
 )
 

@@ -54,7 +54,7 @@ type Controller struct {
 
 	deploymentsLister appslisters.DeploymentLister
 	deploymentsSynced cache.InformerSynced
-	rebootLister      listers.RebootLister
+	rebootsLister     listers.RebootLister
 	rebootsSynced     cache.InformerSynced
 
 	// workqueue is a rate limited work queue. This is used to queue work to be
@@ -78,7 +78,7 @@ func NewController(
 	// obtain references to shared index informers for the Deployment and Reboot
 	// types.
 	deploymentInformer := kubeInformerFactory.Apps().V1().Deployments()
-	rebootInformer := rebootInformerFactory.Reboot().V1().Reboots()
+	rebootInformer := rebootInformerFactory.Reboot().V1alpha1().Reboots()
 
 	// Create event broadcaster
 	// Add reboot-controller types to the default Kubernetes Scheme so Events can be
